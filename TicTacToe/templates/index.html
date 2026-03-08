@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
     <title>Tic Tac Toe</title>
     <style>
+        /* local web‑font declaration so mobile browsers always have it */
+        @font-face {
+            font-family: 'UnifrakturCook';
+            src: url("/static/UnifrakturCook.woff2") format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
         /* medieval parchment background & font */
         body {
             background-color: #fdf3e7;
@@ -21,7 +28,10 @@
         h1 { font-size: 3rem; margin-top: 1rem; }
         table { border-collapse: collapse; margin: 1rem auto; }
         td {
-            width: 70px; height: 70px; text-align: center;
+            /* make cells responsive & square; aspect-ratio keeps width=height */
+            width: 33vw; max-width: 70px;
+            aspect-ratio: 1 / 1;
+            text-align: center;
             font-size: 2.5rem; border: 2px solid #5a3e1b;
             background-color: #e8d5b3;
         }
