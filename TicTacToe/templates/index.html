@@ -34,6 +34,8 @@
             cursor: pointer;
         }
         button:hover { background-color: #4a3317; }
+        /* reserve vertical space for status line so game board doesn't jump */
+        .status { min-height: 1.5em; margin: 0.5rem 0; }
         /* responsive adjustments */
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
@@ -46,11 +48,16 @@
     <h1>Tic Tac Toe</h1>
     <p>Player: {{ player_name }} ({{ player_symbol }}) - Wins: {{ player_wins }}</p>
     <p>Computer: {{ computer_symbol }} - Wins: {{ computer_wins }}</p>
+    <!-- status line is always present to avoid table shifting when text appears -->
+    <p class="status">
     {% if winner %}
-        <p>Winner: {{ winner }}</p>
+        Winner: {{ winner }}
     {% elif draw %}
-        <p>It's a draw!</p>
+        It's a draw!
+    {% else %}
+        &nbsp;
     {% endif %}
+    </p>
     <table>
     {% for i in range(3) %}
         <tr>

@@ -84,13 +84,12 @@ def test_make_move_and_computer(client):
 
 
 def test_win_counts(client):
-    # play two quick games controlling session to simulate wins
+    # play two quick games controlling session to simulate wins and verify counts
     client.post("/start", data={"name": "Gina", "symbol": "X"})
     with client.session_transaction() as sess:
         g = Game()
         g.board = ["X","X","X"," "," "," "," "," "," "]
         sess["game"] = g.to_dict()
-    # visiting index should show player win and increment counter
     rv = client.get("/")
     assert b"Wins: 1" in rv.data
     # trigger another player win
@@ -108,6 +107,33 @@ def test_win_counts(client):
         sess["game"] = g.to_dict()
     rv = client.get("/")
     assert b"Computer: O - Wins: 1" in rv.data
+
+
+def test_layout_reserves_space(client):
+    # ensure the status paragraph always exists so the table doesn't jump
+    client.post("/start", data={"name": "Lay", "symbol": "X"})
+    rv = client.get("/")
+    # there should be exactly one <p class="status"> and it's empty
+    assert rv.data.count(b'class="status"') == 1
+    assert b"Winner" not in rv.data
+
+
+def test_single_win_increment(client):
+    # arrange board so that next player move at index 2 wins
+    client.post("/start", data={"name": "Win", "symbol": "X"})
+    with client.session_transaction() as sess:
+        g = Game()
+        g.board = ["X","X"," "," "," "," "," "," "," "]
+        sess["game"] = g.to_dict()
+    rv1 = client.get("/")
+    assert b"Wins: 0" in rv1.data
+    client.get("/move/2")
+    rv2 = client.get("/")
+    # win should be recorded exactly once
+    assert b"Wins: 1" in rv2.data
+    # refreshing again should not increment further
+    rv3 = client.get("/")
+    assert b"Wins: 1" in rv3.data
 
 
 def test_settings_clears_counters(client):

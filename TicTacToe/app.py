@@ -82,12 +82,6 @@ def move(idx: int):
         # after player move, computer plays if game continues
         if not game.check_win(human) and not game.is_draw():
             game.computer_move(comp)
-
-        # update win counters if someone has just won
-        if game.check_win(human):
-            session["player_wins"] = session.get("player_wins", 0) + 1
-        elif game.check_win(comp):
-            session["computer_wins"] = session.get("computer_wins", 0) + 1
     save_game(game)
     return redirect(url_for("index"))
 
