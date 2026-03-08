@@ -26,13 +26,15 @@
             text-align: center;
         }
         h1 { font-size: 3rem; margin-top: 1rem; }
-        table { border-collapse: collapse; margin: 1rem auto; }
+        /* table-layout:fixed lets us enforce equal cell widths via the td width rule */
+        table { border-collapse: collapse; margin: 1rem auto; table-layout: fixed; width: min(90vw, 270px); }
         td {
-            width: min(33vw, 90px);
-            aspect-ratio: 1 / 1;
+            /* equal width and height guarantee square cells in all browsers */
+            width: min(30vw, 90px);
+            height: min(30vw, 90px);
             position: relative;
             text-align: center;
-            font-size: clamp(1.5rem, 8vw, 2.5rem);
+            font-size: clamp(1.2rem, 7vw, 2.5rem);
             border: 2px solid #5a3e1b;
             background-color: #e8d5b3;
         }
