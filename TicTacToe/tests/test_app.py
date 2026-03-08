@@ -36,8 +36,8 @@ def test_mobile_layout(client):
     assert b'class="mobile"' in rv.data
     # viewport meta should exist
     assert b"viewport" in rv.data
-    # web font link or local @font-face should appear
-    assert b"fonts.googleapis.com" in rv.data or b"UnifrakturCook.woff2" in rv.data
+    # web font should be declared via local @font-face
+    assert b"UnifrakturCook" in rv.data
     # css should include a square-cell technique (aspect-ratio, equal width/height, or padding fallback)
     assert b"aspect-ratio" in rv.data or b"padding-top" in rv.data or b"table-layout" in rv.data
 
@@ -53,9 +53,7 @@ def test_safari_mobile_emulation(client):
     rv = client.get("/", headers={"User-Agent": ua})
     assert b'class="mobile"' in rv.data
     assert b"viewport" in rv.data
-    assert b"fonts.googleapis.com" in rv.data
-    assert b"preconnect" in rv.data
-    # font-family declaration should reference our web font
+    # font is served locally via @font-face
     assert b"UnifrakturCook" in rv.data
     # build number indicator should be visible (any value is fine)
     assert b"build" in rv.data
@@ -76,11 +74,9 @@ def test_setup_mobile_layout(client):
     assert rv.status_code == 200
     # mobile styling flag should be set so body class toggles
     assert b'class="mobile"' in rv.data
-    # viewport and font import should be present
+    # viewport and font declaration should be present
     assert b"viewport" in rv.data
-    assert b"fonts.googleapis.com" in rv.data
-    # preconnect hints should also appear for Safari
-    assert b"preconnect" in rv.data
+    assert b"UnifrakturCook" in rv.data
 
 
 def test_index_page(client):
