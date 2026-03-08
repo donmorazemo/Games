@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
     <title>Setup Tic Tac Toe</title>
     <style>
         body {
@@ -22,9 +24,15 @@
             cursor: pointer;
         }
         button:hover { background-color: #4a3317; }
+        /* responsive tweaks */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            input, select { width: 90%; font-size: 1.1rem; }
+            button { padding: 0.4rem 0.8rem; font-size: 1rem; }
+        }
     </style>
 </head>
-<body>
+<body class="{% if mobile %}mobile{% endif %}">
     <h1>Welcome to Tic Tac Toe!</h1>
     <form method="post" action="{{ url_for('start') }}">
         <label>

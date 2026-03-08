@@ -137,8 +137,13 @@ def start():
             game.computer_move(session["computer_symbol"])
         save_game(game)
         return redirect(url_for("index"))
-    # GET
-    return render_template("setup.html")
+    # GET - before showing the form, detect mobile user agent
+    mobile = False
+    ua = request.user_agent
+    low = ua.string or ""
+    if (hasattr(ua, "is_mobile") and ua.is_mobile) or any(keyword in low for keyword in ["Mobile", "iPhone", "Android", "iPad"]):
+        mobile = True
+    return render_template("setup.html", mobile=mobile)
 
 
 if __name__ == "__main__":

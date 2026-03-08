@@ -36,6 +36,19 @@ def test_mobile_layout(client):
     assert b'class="mobile"' in rv.data
     # viewport meta should exist
     assert b"viewport" in rv.data
+    # web font link should appear
+    assert b"fonts.googleapis.com" in rv.data
+
+
+def test_setup_mobile_layout(client):
+    # an unauthenticated request shows the setup page
+    rv = client.get("/start", headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)"})
+    assert rv.status_code == 200
+    # mobile styling flag should be set so body class toggles
+    assert b'class="mobile"' in rv.data
+    # viewport and font import should be present
+    assert b"viewport" in rv.data
+    assert b"fonts.googleapis.com" in rv.data
 
 
 def test_index_page(client):
