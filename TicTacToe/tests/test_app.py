@@ -38,8 +38,8 @@ def test_mobile_layout(client):
     assert b"viewport" in rv.data
     # web font link or local @font-face should appear
     assert b"fonts.googleapis.com" in rv.data or b"UnifrakturCook.woff2" in rv.data
-    # css should include aspect ratio so cells remain square
-    assert b"aspect-ratio" in rv.data
+    # css should include aspect ratio or padding fallback so cells remain square
+    assert b"aspect-ratio" in rv.data or b"padding-top" in rv.data
 
 
 def test_safari_mobile_emulation(client):

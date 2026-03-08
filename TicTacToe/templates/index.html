@@ -30,10 +30,20 @@
         td {
             /* make cells responsive & square; aspect-ratio keeps width=height */
             width: 33vw; max-width: 70px;
-            aspect-ratio: 1 / 1;
+            /* fallback for browsers without aspect-ratio */
+            height: 0;
+            padding-top: 100%;
+            position: relative;
             text-align: center;
             font-size: 2.5rem; border: 2px solid #5a3e1b;
             background-color: #e8d5b3;
+        }
+        td > a, td > span {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         a {
             display: block; width: 100%; height: 100%; text-decoration: none;
@@ -49,6 +59,7 @@
         /* reserve vertical space for status line so game board doesn't jump */
         .status { min-height: 1.5em; margin: 0.5rem 0; }
         /* responsive adjustments */
+        td:before { content: '';} /* placeholder so selector stays valid */
         .build-number { font-size: 0.8rem; color: #666; }
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
