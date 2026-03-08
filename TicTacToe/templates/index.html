@@ -28,14 +28,12 @@
         h1 { font-size: 3rem; margin-top: 1rem; }
         table { border-collapse: collapse; margin: 1rem auto; }
         td {
-            /* make cells responsive & square; aspect-ratio keeps width=height */
-            width: 33vw; max-width: 70px;
-            /* fallback for browsers without aspect-ratio */
-            height: 0;
-            padding-top: 100%;
+            width: min(33vw, 90px);
+            aspect-ratio: 1 / 1;
             position: relative;
             text-align: center;
-            font-size: 2.5rem; border: 2px solid #5a3e1b;
+            font-size: clamp(1.5rem, 8vw, 2.5rem);
+            border: 2px solid #5a3e1b;
             background-color: #e8d5b3;
         }
         td > a, td > span {
@@ -47,7 +45,7 @@
         }
         a {
             display: block; width: 100%; height: 100%; text-decoration: none;
-            color: inherit; line-height: 70px;
+            color: inherit;
         }
         a:hover { background-color: #d2b88c; }
         button {
@@ -63,7 +61,6 @@
         .build-number { font-size: 0.8rem; color: #666; }
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
-            td { width: 50px; height: 50px; font-size: 2rem; }
             button { padding: 0.4rem 0.8rem; font-size: 1rem; }
         }
     </style>
