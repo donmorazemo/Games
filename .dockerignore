@@ -1,0 +1,4 @@
+# flyctl launch added from TicTacToe\.pytest_cache\.gitignore
+# Created by pytest automatically.
+TicTacToe\.pytest_cache\**\*
+fly.toml

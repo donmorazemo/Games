@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Drop By",
+    "slug": "dropby",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#1A3A5C" },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dropby.app",
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Drop By reads your calendar to detect conflicts with your open hours."
+      }
+    },
+    "android": {
+      "package": "com.dropby.app",
+      "permissions": ["READ_CALENDAR"]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router", "expo-secure-store"],
+    "scheme": "dropby",
+    "extra": {
+      "supabaseUrl": "YOUR_SUPABASE_URL",
+      "supabaseAnonKey": "YOUR_SUPABASE_ANON_KEY",
+      "googleClientId": "YOUR_GOOGLE_IOS_CLIENT_ID",
+      "googleWebClientId": "YOUR_GOOGLE_WEB_CLIENT_ID",
+      "router": {
+        "origin": false
+      }
+    }
+  }
+}

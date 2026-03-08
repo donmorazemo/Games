@@ -1,0 +1,6 @@
+node_modules/
+.expo/
+expo_log.txt
+*.log
+dist/
+web-build/
