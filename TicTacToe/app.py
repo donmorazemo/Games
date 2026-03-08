@@ -1,3 +1,5 @@
+import os
+import subprocess
 from flask import Flask, session, redirect, url_for, render_template, request
 from tic_tac_toe.game import Game
 
@@ -5,9 +7,22 @@ app = Flask(__name__)
 # NOTE: in production, use a secure random key
 app.secret_key = "dev_secret_key"
 
-# increment this value whenever the code is updated/deployed;
-# it will display on every page so you can verify the running version
-BUILD_NUMBER = 1
+# derive a build number automatically. prefer an explicit environment
+# variable (useful if you build in CI), otherwise try counting git
+# commits. if all else fails fall back to 'dev'.
+
+def _get_build_number():
+    if "BUILD_NUMBER" in os.environ:
+        return os.environ["BUILD_NUMBER"]
+    try:
+        # count commits in repository (requires .git to be present)
+        out = subprocess.check_output(["git", "rev-list", "--count", "HEAD"],
+                                      stderr=subprocess.DEVNULL)
+        return out.decode().strip()
+    except Exception:
+        return "dev"
+
+BUILD_NUMBER = _get_build_number()
 
 
 def get_game():
