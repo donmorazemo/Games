@@ -29,6 +29,15 @@ def test_service_running(client):
         assert f">{digit}<".encode() not in response.data
 
 
+def test_mobile_layout(client):
+    client.post("/start", data={"name": "Mobi", "symbol": "X"})
+    # simulate a mobile user agent
+    rv = client.get("/", headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X)"})
+    assert b'class="mobile"' in rv.data
+    # viewport meta should exist
+    assert b"viewport" in rv.data
+
+
 def test_index_page(client):
     # simulate setup first
     client.post("/start", data={"name": "Alice", "symbol": "X"})

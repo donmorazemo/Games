@@ -36,6 +36,14 @@ def index():
     elif game.check_win("O"):
         winner = "O"
 
+    # detect mobile user agent so template can adjust layout
+    mobile = False
+    ua = request.user_agent
+    # flask user agent parser may not mark every phone; also check for common indicators
+    low = ua.string or ""
+    if (hasattr(ua, "is_mobile") and ua.is_mobile) or any(keyword in low for keyword in ["Mobile", "iPhone", "Android", "iPad"]):
+        mobile = True
+
     # if board no longer has a winner, clear the processed flag so next win counts
     if not winner and "winner_processed" in session:
         session.pop("winner_processed")
@@ -59,6 +67,7 @@ def index():
         computer_symbol=session.get("computer_symbol"),
         player_wins=session.get("player_wins", 0),
         computer_wins=session.get("computer_wins", 0),
+        mobile=mobile,
     )
 
 
