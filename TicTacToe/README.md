@@ -44,3 +44,7 @@ You can publish the game using any Python web host.  Here are two common approac
 
 Alternatively you may deploy to PythonAnywhere, AWS Elastic Beanstalk, or any other host that
 supports Flask.  Just point the web server to run `python app.py` in the project root.
+
+> **Note:** the application binds to `0.0.0.0` and honors the `PORT` environment
+> variable, which is required by platforms such as Fly.io, Heroku, and similar
+> container hosts.  The default port is 5000 when the variable isn't set.

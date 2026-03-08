@@ -134,4 +134,7 @@ def start():
 
 if __name__ == "__main__":
     # run development server
-    app.run(debug=True)
+    # listen on all interfaces and respect provided PORT (e.g. from fly.io)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
