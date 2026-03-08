@@ -32,6 +32,7 @@
             cursor: pointer;
         }
         button:hover { background-color: #4a3317; }
+        .build-number { font-size:0.8rem; color:#666; margin-top:0.5rem; }
         /* responsive tweaks */
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
@@ -42,6 +43,7 @@
 </head>
 <body class="{% if mobile %}mobile{% endif %}">
     <h1>Welcome to Tic Tac Toe!</h1>
+    <p class="build-number">build {{ build }}</p>
     <form method="post" action="{{ url_for('start') }}">
         <label>
             Your name: <input type="text" name="name" required>

@@ -5,6 +5,10 @@ app = Flask(__name__)
 # NOTE: in production, use a secure random key
 app.secret_key = "dev_secret_key"
 
+# increment this value whenever the code is updated/deployed;
+# it will display on every page so you can verify the running version
+BUILD_NUMBER = 1
+
 
 def get_game():
     # ensure a game object exists in session
@@ -67,8 +71,7 @@ def index():
         computer_symbol=session.get("computer_symbol"),
         player_wins=session.get("player_wins", 0),
         computer_wins=session.get("computer_wins", 0),
-        mobile=mobile,
-    )
+        mobile=mobile,        build=BUILD_NUMBER,    )
 
 
 @app.route("/move/<int:idx>")
@@ -137,7 +140,7 @@ def start():
     low = ua.string or ""
     if (hasattr(ua, "is_mobile") and ua.is_mobile) or any(keyword in low for keyword in ["Mobile", "iPhone", "Android", "iPad"]):
         mobile = True
-    return render_template("setup.html", mobile=mobile)
+    return render_template("setup.html", mobile=mobile, build=BUILD_NUMBER)
 
 
 if __name__ == "__main__":

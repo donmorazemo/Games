@@ -49,6 +49,7 @@
         /* reserve vertical space for status line so game board doesn't jump */
         .status { min-height: 1.5em; margin: 0.5rem 0; }
         /* responsive adjustments */
+        .build-number { font-size: 0.8rem; color: #666; }
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
             td { width: 50px; height: 50px; font-size: 2rem; }
@@ -60,6 +61,7 @@
     <h1>Tic Tac Toe</h1>
     <p>Player: {{ player_name }} ({{ player_symbol }}) - Wins: {{ player_wins }}</p>
     <p>Computer: {{ computer_symbol }} - Wins: {{ computer_wins }}</p>
+    <p class="build-number">build {{ build }}</p>
     <!-- status line is always present to avoid table shifting when text appears -->
     <p class="status">
     {% if winner %}
