@@ -1,0 +1,7 @@
+app = "games"  # replace with your fly app name
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "5000"
